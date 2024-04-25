@@ -1,37 +1,146 @@
+
+namespace CalculatorEngine;
+
 public class Calculations {
     public static void Main(string[] args)
     {
         
     }
 
-    public static float Calculate(float input1, float input2, char operation)
+    public String Calculate(double input1, double input2, char operation)
     {
         switch (operation)
         {
             case '+':
-                return input1 + input2;
-            case  '-':
-                return input1 - input2;
+                return Add(input1, input2);
+            case '-':
+                return Subtract(input1, input2);
             case '*':
-                return input1 * input2;
+                return Multiply(input1, input2);
             case '/':
-                return input1 / input2;
+                return Divide(input1, input2);
             case '=':
-                if (input1 == input2)
-                {
-                    return 1;
-                }
-                else return 0;
+                return AreEqual(input1, input2);
             case '^':
-                return (float)Math.Pow(input1, input2);
+                return Power(input1, input2);
             case 'l':
-                return (float)Math.Log(input1, input2);
+                return Logarithm(input1, input2);
             case 'r':
-                return (float)Math.Pow(input1, 1 / input2);
+                return Root(input1, input2);
+            case '!':
+                return Factorial(input1);
+            case 's':
+                return Sine(input1);
+            case 'c':
+                return Cosine(input1);
+            case 't':
+                return Tangent(input1);
+            case 'i':
+                return Inverse(input1);
+            default:
+                throw new InvalidOperationException("Unknown operation.");
         }
+    }
+    public static string Add(double input1, double input2)
+    {
+        double result = input1 + input2;
+        return $"{input1} + {input2} \n= {result}";
+    }
+
+    public static string Subtract(double input1, double input2)
+    {
+        double result = input1 - input2;
+        return $"{input1} - {input2} = {result}";
+    }
+
+    public static string Multiply(double input1, double input2)
+    {
+        double result = input1 * input2;
+        return $"{input1} * {input2} = {result}";
+    }
+
+    public static string Divide(double input1, double input2)
+    {
+        if (input2 == 0)
+            return "Not a Number";
         
+        double result = input1 / input2;
+        return $"{input1} / {input2} = {result}";
+    }
+
+    public static string AreEqual(double input1, double input2)
+    {
+        bool result = input1 == input2;
+        return $"{input1} == {input2} = {result}";
+    }
+
+    public static string Power(double input1, double input2)
+    {
+        double result = Math.Pow(input1, input2);
+        return $"{input1} ^ {input2} = {result}";
+    }
+
+    public static string Logarithm(double input1, double input2)
+    {
+        if (input1 <= 0 || input2 <= 0)
+            return "Not a Number";
         
-        return 0;
+        double result = Math.Log(input1, input2);
+        return $"log_{input2}({input1}) = {result}";
+    }
+
+    public static string Root(double input1, double input2)
+    {
+        if (input2 <= 0)
+            return $"{input1} root {input2} =\n Not a Number";
+        
+        double result = Math.Pow(input1, 1 / input2);
+        return $"{input1} root {input2} = {result}";
+    }
+    
+    public static string Factorial(double input)
+    {
+        if (input < 0 || input != (int)input)
+            return $"{(int)input}! =\n Not a Number"; 
+            
+        int factorial = 1;
+        for (int i = 2; i <= (int)input; i++)
+            factorial *= i;
+
+        return $"{(int)input}! = {factorial}";
+    }
+
+    
+    public static string Sine(double input)
+    {
+        double result = Math.Sin(input); // Assumes radians
+        return $"sin({input}) = {result}";
+    }
+
+   
+    public static string Cosine(double input)
+    {
+        double result = Math.Cos(input); // Assumes radians
+        return $"cos({input}) = {result}";
+    }
+
+    
+    public static string Tangent(double input)
+    {
+        if (Math.Abs(input % Math.PI) == Math.PI / 2)
+            return "Not a Number"; // Tan undefined at odd multiples of π/2
+            
+        double result = Math.Tan(input);
+        return $"tan({input}) = {result}";
+    }
+
+    
+    public static string Inverse(double input)
+    {
+        if (input == 0)
+            return "Not a Number"; 
+                        
+        double result = 1 / input;
+        return $"1/{input} = {result}";
     }
 }
-

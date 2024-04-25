@@ -1,8 +1,9 @@
 ﻿@page "/"
+@using System.Drawing
 
 <PageTitle>Calculator</PageTitle>
 
-<h1>Calculator</h1>
+
 
 <body style="background-color:darkgray">
 </body>
@@ -17,18 +18,22 @@
 
 
     input[type="button"] {
-        width: 100%;
-        padding: 20px 40px;
-        background-color: dimgray;
-        color: white;
+        width: 80%;
+        margin: 5px;
+        padding: 10px 40px;
+        background-color: #EBEBEB;
+        color: black;
         font-size: 24px;
         font-weight: bold;
-        border: none;
+        border: 2px solid black;
         border-radius: 5px;
+        
     }
 
     input[type="text"] {
-        padding: 20px 30px;
+        width: 80%;
+        
+        padding: 20px 40px;
         font-size: 24px;
         font-weight: bold;
         border-radius: 5px;
@@ -47,64 +52,110 @@
 </style>
 
 <body>
-<button>
-    Clear
-</button>
-<table id="calcu" style="width:100%">
-    <tr>  <th colspan="4"> <header type="resultText"> Enter value(s) below and select an operation. </header> </th> </tr>
+
+    
+<table id="calcu" style="width:100%; text-align: center;">
     <tr>
-        <th style="width:50%"> Input A </th>
-        <th style="width:50%"> Input B </th>
-    </tr>
+             <th style="text-align: left; padding-left: 60px; font-size: 48px;">Calculator</th>
+             <th colspan="3" style="text-align: right; padding-right: 60px;"> 
+                         <button style="background-color: #EBEBEB; color: black; border: 5px solid black; padding: 10px 80px;" @onclick="Clear">Clear</button>
+                     </th>
+         </tr>
+    <tr>
+        <th colspan="4" style="height: 50px; background-color: @resultColor; text-align: center;">
+            <header>@ResultText</header>
+        </th> </tr>
+    <tr>
+            <th style="text-align: center;"> Input A </th> <!-- Centered -->
+            <th style="text-align: center;"> Input B </th> <!-- Centered -->
+        </tr>
     <tr>
         <td>
-            <input type="text" @bind = "Num1" id="result">
+            <input type="text" @bind="Num1Text">
         </td>
         <td>
-            <input type="text" @bind="Num2" id="result">
+            <input type="text" @bind="Num2Text">
         </td>
     </tr>
 
     <tr>
         <td><input type="button" @onclick="() => Calculate('+')" value="A + B"></td>
-        <td><input type="button" value="A!"></td>
-    </tr>
-    <td><input type="button" value="A - B"></td>
-    <td><input type="button" value="sin A"></td>
-    <tr>
-        <td><input type="button" value="A * B"></td>
-        <td><input type="button" value="cos A"></td>
+        <td><input type="button" @onclick="() => Calculate('!')" value="A!"></td>
     </tr>
     <tr>
-
-        <td><input type="button" value="A / B"></td>
-        <td><input type="button" value="tan A"></td>
+        <td><input type="button" @onclick="() => Calculate('-')" value="A - B"></td>
+        <td><input type="button" @onclick="() => Calculate('s')" value="sin A"></td>
     </tr>
     <tr>
-
-        <td><input type="button" value="A == B"></td>
-        <td><input type="button" value="1 / A"></td>
+        <td><input type="button" @onclick="() => Calculate('*')" value="A * B"></td>
+        <td><input type="button" @onclick="() => Calculate('c')" value="cos A"></td>
     </tr>
     <tr>
-        <td><input type="button" value="A ^ B"></td>
+        <td><input type="button" @onclick="() => Calculate('/')" value="A / B"></td>
+        <td><input type="button" @onclick="() => Calculate('t')" value="tan A"></td>
     </tr>
     <tr>
-        <td><input type="button" value="A log B"></td>
+        <td><input type="button" @onclick="() => Calculate('=')" value="A == B"></td>
+        <td><input type="button" @onclick="() => Calculate('i')" value="1 / A"></td>
     </tr>
     <tr>
-        <td><input type="button" value="A root B"></td>
+        <td><input type="button" @onclick="() => Calculate('^')" value="A ^ B"></td>
+    </tr>
+    <tr>
+        <td><input type="button" @onclick="() => Calculate('l')" value="A log B"></td>
+    </tr>
+    <tr>
+        <td><input type="button" @onclick="() => Calculate('r')" value="A root B"></td>
     </tr>
 </table>
 </body>
 
 @code
 {
-    private float Num1 { get; set; }
-    private float Num2 { get; set; }
+
+    private string Num1Text { get; set; } = "0";
+    private string Num2Text { get; set; } = "0";
+    private string resultColor { get; set; }
+
+    private CalculatorEngine.Calculations c;
+    protected override void OnInitialized()
+    {
+        // Initialize the calculator object
+        c = new CalculatorEngine.Calculations();
+        resultColor = "#FFECD7";
+    }
     
+    private string ResultText { get; set; } = "Enter value(s) below and select an operation.";
 
     private void Calculate(char operation)
     {
-        Calculations.Calculate(Num1, Num2, operation);
+        double num1 = 0;
+        double num2 = 0;
+
+        if (!double.TryParse(Num1Text, out num1) || !double.TryParse(Num2Text, out num2))
+        {
+            ResultText = "Invalid Input, Numbers Only.";
+        }
+        
+        else
+        {
+            ResultText = c.Calculate(num1, num2, operation);
+            if (ResultText.Contains("Not a Number") || ResultText.Contains("Invalid Input, Numbers Only."))
+            {
+                resultColor = "#B70F0A";
+            }
+            else
+            {
+                resultColor = "#FFECD7";
+            }
+        }
+    }
+
+    private void Clear()
+    {
+        ResultText = "Enter value(s) below and select an operation.";
+        resultColor = "#FFECD7";
+        Num1Text = "0";
+        Num2Text = "0";
     }
 }
