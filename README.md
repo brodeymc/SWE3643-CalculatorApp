@@ -1,4 +1,4 @@
-# KSU SWE 3634 Software Testing and Quality Assurance Semester Project: Web-Based Calculator
+# KSU SWE 3643 Software Testing and Quality Assurance Semester Project: Web-Based Calculator
 
 This repository contains my Web-Based Calculator project. The source folder contains the calculator engine, calculator web app, calculator engine unit tests, and the end-to-end tests. 
 
