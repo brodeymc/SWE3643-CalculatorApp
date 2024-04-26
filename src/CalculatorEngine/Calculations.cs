@@ -38,41 +38,43 @@ public class Calculations {
             case 'i':
                 return Reciprocal(input1);
             default:
-                throw new InvalidOperationException("Unknown operation.");
+                return "Unknown operation.";
         }
     }
-    public static string Add(double input1, double input2)
+    public string Add(double input1, double input2)
     {
         //preq-ENGINE-3
         double result = input1 + input2;
-        return $"{input1} + {input2} \n= {result}";
+        return $"{input1} + {input2} = {result}";
     }
 
-    public static string Subtract(double input1, double input2)
+    public string Subtract(double input1, double input2)
     {
         //preq-ENGINE-4
         double result = input1 - input2;
         return $"{input1} - {input2} = {result}";
     }
 
-    public static string Multiply(double input1, double input2)
+    public string Multiply(double input1, double input2)
     {
         //preq-ENGINE-5
         double result = input1 * input2;
         return $"{input1} * {input2} = {result}";
     }
 
-    public static string Divide(double input1, double input2)
+    public string Divide(double input1, double input2)
     {
         //preq-ENGINE-7
         if (input2 == 0)
-            return "Not a Number";
-        
+        {
+            return $"{input1} / {input2} = Not a Number";
+        }
         double result = input1 / input2;
+        
         return $"{input1} / {input2} = {result}";
     }
 
-    public static string AreEqual(double input1, double input2)
+    public string AreEqual(double input1, double input2)
     {
         //preq-ENGINE-8
         double tolerance = 1e-8;
@@ -81,38 +83,38 @@ public class Calculations {
         return $"{input1} == {input2} = {result}";
     }
 
-    public static string Power(double input1, double input2)
+    public string Power(double input1, double input2)
     {
         //preq-ENGINE-9
         double result = Math.Pow(input1, input2);
         return $"{input1} ^ {input2} = {result}";
     }
 
-    public static string Logarithm(double input1, double input2)
+    public string Logarithm(double input1, double input2)
     {
         //preq-ENGINE-10
         if (input1 <= 0 || input2 <= 0)
-            return "Not a Number";
+            return $"log_{input2}({input1}) = Not a Number";
         
         double result = Math.Log(input1, input2);
         return $"log_{input2}({input1}) = {result}";
     }
 
-    public static string Root(double input1, double input2)
+    public string Root(double input1, double input2)
     {
         //preq-ENGINE-11
         if (input2 <= 0)
-            return $"{input1} root {input2} =\n Not a Number";
+            return $"{input1} root {input2} = Not a Number";
         
         double result = Math.Pow(input1, 1 / input2);
         return $"{input1} root {input2} = {result}";
     }
     
-    public static string Factorial(double input)
+    public string Factorial(double input)
     {
         //preq-ENGINE-12
         if (input < 0 || input != (int)input)
-            return $"{(int)input}! =\n Not a Number"; 
+            return $"{(int)input}! = Not a Number"; 
             
         int factorial = 1;
         for (int i = 2; i <= (int)input; i++)
@@ -122,38 +124,56 @@ public class Calculations {
     }
 
     
-    public static string Sine(double input)
+    public string Sine(double input)
     {
         //preq-ENGINE-13
-        double result = Math.Sin(input); // Assumes radians
+        double radians = input * (Math.PI / 180);
+        double result = Math.Sin(radians);
+        double tolerance = 1e-10;
+        
+        if (Math.Abs(result) < tolerance)
+        {
+            result = 0; 
+        }
+        
         return $"sin({input}) = {result}";
     }
 
    
-    public static string Cosine(double input)
+    public string Cosine(double input)
     {
         //preq-ENGINE-14
-        double result = Math.Cos(input); // Assumes radians
+        double radians = input * (Math.PI / 180);
+        double result = Math.Cos(radians); 
         return $"cos({input}) = {result}";
     }
 
     
-    public static string Tangent(double input)
+    public string Tangent(double input)
     {
         //preq-ENGINE-15
         if (Math.Abs(input % Math.PI) == Math.PI / 2)
-            return "Not a Number"; // Tan undefined at odd multiples of π/2
-            
-        double result = Math.Tan(input);
+            return $"tan({input}) = Not a Number"; 
+        
+        //preq-ENGINE-13
+        double radians = input * (Math.PI / 180);
+        double result = Math.Tan(radians);
+        double tolerance = 1e-10;
+        
+        if (Math.Abs(result) < tolerance)
+        {
+            result = 0; 
+        }
+        
         return $"tan({input}) = {result}";
     }
 
     
-    public static string Reciprocal(double input)
+    public string Reciprocal(double input)
     {
         //preq-ENGINE-16
         if (input == 0)
-            return "Not a Number"; 
+            return $"1/{input} = Not a Number"; 
                         
         double result = 1 / input;
         return $"1/{input} = {result}";
