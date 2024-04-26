@@ -1,7 +1,8 @@
 
 namespace CalculatorEngine;
 
-public class Calculations {
+public class Calculations
+{
     public static void Main(string[] args)
     {
         
