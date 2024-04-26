@@ -20,6 +20,7 @@ Brodey McGinnis
 
 <img src="Images/plantUMLDiagram.png" alt="plantUMLDiagram.png" style="zoom: 50%;" 
 />
+
 - The web server app references the calculator engine, sending the user input and receiving back the results of calculations
 - The calculator engine unit test references the calculator engine and directly tests the calculator logic
 - The end-to-end tests reference the html of the running web server app and tests the functionality 
@@ -80,6 +81,7 @@ Passed!  - Failed:     0, Passed:    22, Skipped:     0, Total:    22, Duration:
 
 <img src="Images/Coverage.png" alt="Coverage.png" style="zoom: 50%;" 
 />
+
 All calculator functions received 100% coverage. The 2 uncovered lines are the empty main method.
 
 ## Executing End-To-End Tests
