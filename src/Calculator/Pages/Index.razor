@@ -115,9 +115,9 @@
 
     private string Num1Text { get; set; } = "0";
     private string Num2Text { get; set; } = "0";
-    private string resultColor { get; set; }
+    private string? resultColor { get; set; } = "";
 
-    private CalculatorEngine.Calculations c;
+    private CalculatorEngine.Calculations? c;
     protected override void OnInitialized()
     {
         // Initialize the calculator object
@@ -139,7 +139,7 @@
         
         else
         {
-            ResultText = c.Calculate(num1, num2, operation);
+            if(c!=null) {ResultText = c.Calculate(num1, num2, operation);}
             if (ResultText.Contains("Not a Number") || ResultText.Contains("Invalid Input, Numbers Only."))
             {
                 resultColor = "#B70F0A";
