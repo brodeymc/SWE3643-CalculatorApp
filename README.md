@@ -1,6 +1,6 @@
 # KSU SWE 3634 Software Testing and Quality Assurance Semester Project: Web-Based Calculator
 
-Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+This repository contains my Web-Based Calculator project. The source folder contains the calculator engine, calculator web app, calculator engine unit tests, and the end-to-end tests. 
 
 
 ## Table of Contents
