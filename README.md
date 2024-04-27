@@ -31,12 +31,9 @@ This application is cross-platform and should work on Windows 10+, Mac OSx Ventu
 To prepare your environment to execute this application:
 
  1. [Install .NET SDK](https://dotnet.microsoft.com/download)
-
-To configure Playwright for end-to-end testing:
-
- 1. Open command prompt
- 2. Run the following command to install Playwright for end-to-end testing:
- `dotnet tool install --global Microsoft.Playwright.CLI`
+ 2. [Install Playwright for end-to-end testing](https://playwright.dev/dotnet/docs/intro#installing-playwright)
+ 3. If you don't have it installed beforehand, [install PowerShell for Windows](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4)
+ 4. You will likely need to use `pwsh bin/Debug/net8.0/playwright.ps1 install` at the location of the Web App if you have never used Playwright before
 
 ## Executing the Web Application
 
@@ -70,7 +67,6 @@ info: Microsoft.Hosting.Lifetime[0]
  2. Locate the location of CalculatorEngineUnitTests.csproj and copy the path
  3. Run the project with the command `dotnet test C:path/CalculatorEngineUnitTests.csproj` (replace C:path/CalculatorEngineUnitTests.csproj with the copied path)
 
-
 Sample Output:
 ```
 Starting test execution, please wait...
@@ -91,6 +87,8 @@ All calculator functions received 100% coverage. The 2 uncovered lines are the e
  1. Repeat the steps to [executing the web application](#executing-the-web-application) as it will need to be running to perform the end-to-end tests. 
  2. Open another command prompt/terminal
  3. Run the tests with the command `dotnet test C:path/CalculatorEndtoEndTests.csproj` (replace C:path/CalculatorEndtoEndTests.csproj with the copied path)
+
+Upon testing on a new computer, I have run into a "ERR_CERT_AUTHORITY_INVALID" error and have been unable to resolve the issue.
 
  Sample Output:
  ```
