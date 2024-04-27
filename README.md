@@ -49,6 +49,8 @@ To run from the command line:
  3. Run the project with the command `dotnet run --project C:path/CalculatorWebServerApp.csproj` (replace C:path/CalculatorWebServerApp.csproj with the copied path)
  4. After the application starts, launch a browser and connect to http://localhost:7277 or http://localhost:5238
 
+If your browser says the source is untrusted you should be able to continue to the site.
+
 Sample output:
 ```
 info: Microsoft.Hosting.Lifetime[14]
